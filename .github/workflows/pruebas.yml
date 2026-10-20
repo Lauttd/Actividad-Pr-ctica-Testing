@@ -1,0 +1,23 @@
+name: Pruebas automatizadas  # Nombre con el que se verá esta ejecución en la pestaña 'Actions' de GitHub.
+on: [push, pull_request]    # Eventos disparadores: se ejecuta automáticamente al hacer un `git push` o abrir/actualizar un Pull Request.
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest  # Contenedor virtual en la nube (máquina con Ubuntu en GitHub).
+    steps:
+      # 1. Descarga el código del repositorio en el contenedor
+      - uses: actions/checkout@v4
+
+      # 2. Prepara el entorno instalando Node.js v24
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # 3. Instala las dependencias declaradas en el package.json
+      - run: npm install
+
+      # 4. Compila y verifica que no haya errores de tipos en TypeScript
+      - run: npm run typecheck
+
+      # 5. Corre las pruebas automatizadas con Vitest (precios.test.ts y api.test.ts)
+      - run: npm test
