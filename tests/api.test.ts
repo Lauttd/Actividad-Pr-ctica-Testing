@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { calcularPrecioFinal } from '../src/services/precios.ts';
 
 describe('calcularPrecioFinal', () => {
-  // Pruebas iniciales del laboratorio
   it('aplica un descuento correctamente', () => {
     expect(calcularPrecioFinal(1000, 10)).toBe(900);
   });
@@ -11,12 +10,10 @@ describe('calcularPrecioFinal', () => {
     expect(calcularPrecioFinal(1000, 0)).toBe(1000);
   });
 
-  // Esta es la prueba que antes fallaba y ahora pasa gracias a la corrección en el servicio
   it('rechaza descuentos superiores al 100 %', () => {
     expect(() => calcularPrecioFinal(1000, 150)).toThrow(RangeError);
   });
 
-  // --- NUEVAS PRUEBAS REQUERIDAS (Sección 6) ---
 
   it('devuelve cero con un descuento del 100 %', () => {
     expect(calcularPrecioFinal(1000, 100)).toBe(0);
